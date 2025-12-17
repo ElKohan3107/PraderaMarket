@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="robots" content="noindex, nofollow">
+
     <title>Menú Pradera Market</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
@@ -12,12 +15,11 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         
         body { 
-            /* 🔴 CAMBIO: FONDO OSCURO CON DEGRADADO */
             background: linear-gradient(to bottom, #0a0a0a, #3d3d3d); 
-            color: #f4f4f4; /* Texto general claro */
+            color: #f4f4f4; 
             padding-bottom: 40px; 
             overflow-x: hidden; 
-            min-height: 100vh; /* Asegura que el degradado cubra toda la pantalla */
+            min-height: 100vh; 
         }
 
         /* --- CARRUSEL --- */
@@ -35,7 +37,7 @@
             color: white;
             border-bottom-left-radius: 40px;
             border-bottom-right-radius: 40px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5); /* Sombra más oscura */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5); 
         }
 
         .texto-fondo {
@@ -74,7 +76,7 @@
             position: relative; 
         }
 
-        /* LIMONES SUPER GIGANTES */
+        /* DECORACIONES */
         .decoracion-flotante {
             position: absolute;
             width: 400px; 
@@ -153,7 +155,7 @@
         .titulo-seccion { 
             margin: 0;
             font-size: 1.5rem; 
-            color: #ffffff; /* 🔴 CAMBIO: Texto blanco */
+            color: #ffffff; 
             font-weight: 800; 
             text-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
@@ -192,8 +194,8 @@
             padding: 10px 20px;
             border-radius: 25px;
             border: none;
-            background-color: rgba(255,255,255,0.1); /* 🔴 Fondo semitransparente */
-            color: #ffffff; /* 🔴 Texto blanco */
+            background-color: rgba(255,255,255,0.1); 
+            color: #ffffff; 
             font-weight: 600;
             font-size: 0.95rem;
             cursor: pointer;
@@ -218,7 +220,7 @@
             padding: 12px 20px;
             border-radius: 30px;
             border: none;
-            background: rgba(255,255,255,0.9); /* 🔴 Buscador claro */
+            background: rgba(255,255,255,0.9); 
             font-family: 'Poppins', sans-serif;
             font-size: 1rem;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -234,7 +236,7 @@
         
         .card { 
             background: white; border-radius: 20px; padding: 20px; text-align: center; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Sombra más fuerte para contrastar */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); 
             display: flex; flex-direction: column; justify-content: center;
             align-items: center;
             animation: fadeIn 0.5s ease;
@@ -245,10 +247,10 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .card img { width: 100%; height: 120px; object-fit: contain; margin-bottom: 15px; }
-        .card h3 { font-size: 1rem; margin-bottom: 5px; color: #333; /* Texto oscuro dentro de la tarjeta blanca */ }
+        .card h3 { font-size: 1rem; margin-bottom: 5px; color: #333; }
         .precio-card { color: #e63946; font-weight: 900; font-size: 1.2rem; }
         
-        footer { text-align: center; margin-top: 50px; color: #bbb; /* 🔴 Footer gris claro */ font-size: 0.9rem; }
+        footer { text-align: center; margin-top: 50px; color: #bbb; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -304,7 +306,7 @@
             {
                 nombre: "Score Gorilla",
                 descripcion: "Sabor Jugo de Selva - 500ml",
-                precio: 100,
+                precio: 1000,
                 imagen: "img/scoregorilla.png", 
                 color: "#6A1B9A", 
                 textoFondo: "SCORE",
@@ -320,7 +322,7 @@
                 categoria: "Snack" 
             },
             {
-                nombre: "Limon Soda",
+                nombre: "Limon Soda 1.5L Deseshable",
                 descripcion: "Formato 1.5L",
                 precio: 1500,
                 imagen: "img/limonsoda.png",
@@ -358,13 +360,118 @@
                 color: "#000",
                 textoFondo: "OCB",
                 categoria: "Growshop" 
+            },
+            // 🔴 NUEVO PRODUCTO DORITOS (CON MARCA PARA NO SALIR EN CARRUSEL)
+            {
+                nombre: "Doritos 450g",
+                descripcion: "Queso",
+                precio: 1500,
+                imagen: "img/doritos1.jpg", 
+                color: "#e63946",
+                textoFondo: "DORITOS",
+                categoria: "Snack",
+                soloGrid: true // 🔴 Esta propiedad evita que salga en el carrusel
+            },
+
+            {
+                nombre: "Orange Crush 1.5L Deseshable",
+                descripcion: "Queso",
+                precio: 1500,
+                imagen: "img/orangecrush.png", 
+                color: "#e63946",
+                textoFondo: "DORITOS",
+                categoria: "Refrescos",
+                soloGrid: true 
+            },
+
+            {
+                nombre: "Kem Piña 1.5L Deseshable",
+                descripcion: "Queso",
+                precio: 1500,
+                imagen: "img/kem.webp", 
+                color: "#e63946",
+                textoFondo: "DORITOS",
+                categoria: "Refrescos",
+                soloGrid: true 
+            },
+
+            {
+                nombre: "Kem Extreme 1.5L Deseshable",
+                descripcion: "Queso",
+                precio: 1500,
+                imagen: "img/Kem_Xtreme.png", 
+                color: "#e63946",
+                textoFondo: "DORITOS",
+                categoria: "Refrescos",
+                soloGrid: true 
+            },
+
+            {
+                nombre: "Pap 1.5L Deseshable",
+                descripcion: "Queso",
+                precio: 1500,
+                imagen: "img/pap.webp", 
+                color: "#e63946",
+                textoFondo: "DORITOS",
+                categoria: "Refrescos",
+                soloGrid: true 
+            },
+
+            {
+                nombre: "Bilz 1.5L Deseshable",
+                descripcion: "Queso",
+                precio: 1500,
+                imagen: "img/bilz.webp", 
+                color: "#e63946",
+                textoFondo: "DORITOS",
+                categoria: "Refrescos",
+                soloGrid: true 
+            },
+
+            {
+                nombre: "Canada Dry 1.5L Deseshable",
+                descripcion: "Queso",
+                precio: 1500,
+                imagen: "img/canadadry.png", 
+                color: "#e63946",
+                textoFondo: "DORITOS",
+                categoria: "Refrescos",
+                soloGrid: true 
+            },
+
+            {
+                nombre: "Coca-Cola 1.25L Retornable",
+                descripcion: "Queso",
+                precio: 1300,
+                imagen: "img/coca.webp", 
+                color: "#e63946",
+                textoFondo: "DORITOS",
+                categoria: "Refrescos",
+                soloGrid: true 
+            },
+
+            {
+                nombre: "Coca-Cola 3L Retornable",
+                descripcion: "Queso",
+                precio: 2600,
+                imagen: "img/cocacola3.webp", 
+                color: "#e63946",
+                textoFondo: "DORITOS",
+                categoria: "Refrescos",
+                soloGrid: true 
             }
         ];
 
         let indiceActual = 0;
 
+        // 🔴 LÓGICA DE FILTRADO PARA CARRUSEL
+        // Creamos una lista separada que SOLO tiene los productos que NO son 'soloGrid'
+        const productosCarrusel = productos.filter(prod => !prod.soloGrid);
+
         function cargarCarrusel() {
-            const prod = productos[indiceActual];
+            // Usamos la nueva lista filtrada para el carrusel
+            const prod = productosCarrusel[indiceActual];
+            
             document.getElementById('texto-fondo').innerText = prod.textoFondo || prod.nombre.split(" ")[0]; 
             document.getElementById('precio-hero').innerText = prod.precio;
             
@@ -384,8 +491,9 @@
 
         function cambiarSlide(direccion) {
             indiceActual += direccion;
-            if (indiceActual >= productos.length) indiceActual = 0;
-            if (indiceActual < 0) indiceActual = productos.length - 1;
+            // Usamos el largo de la lista filtrada, no de todos los productos
+            if (indiceActual >= productosCarrusel.length) indiceActual = 0;
+            if (indiceActual < 0) indiceActual = productosCarrusel.length - 1;
 
             const caja = document.getElementById('caja-animada');
             caja.classList.remove('animacion-entra-derecha', 'animacion-entra-izquierda');
