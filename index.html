@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Pradera Market</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- ESTILOS GENERALES --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        
+        body { 
+            /* 🔴 CAMBIO: FONDO OSCURO CON DEGRADADO */
+            background: linear-gradient(to bottom, #0a0a0a, #3d3d3d); 
+            color: #f4f4f4; /* Texto general claro */
+            padding-bottom: 40px; 
+            overflow-x: hidden; 
+            min-height: 100vh; /* Asegura que el degradado cubra toda la pantalla */
+        }
+
+        /* --- CARRUSEL --- */
+        .carrusel-container {
+            position: relative;
+            width: 100%;
+            height: 55vh; 
+            min-height: 480px;
+            background-color: #e63946;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.5s ease;
+            color: white;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5); /* Sombra más oscura */
+        }
+
+        .texto-fondo {
+            position: absolute;
+            font-size: 20vw; 
+            font-weight: 900;
+            opacity: 0.25; 
+            white-space: nowrap;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            text-transform: uppercase;
+        }
+
+        .carrusel-contenido {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 10px;
+        }
+
+        .caja-animada {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative; 
+        }
+
+        /* LIMONES SUPER GIGANTES */
+        .decoracion-flotante {
+            position: absolute;
+            width: 400px; 
+            height: auto;
+            z-index: 1; 
+            opacity: 0; 
+            transition: opacity 0.5s;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+            animation: flotar-deco 5s infinite ease-in-out;
+            left: 50%; 
+        }
+
+        .deco-1 { top: 5%; margin-left: -380px; animation-delay: 0s; }
+        .deco-2 { bottom: 15%; margin-left: 80px; width: 350px; animation-delay: 2.5s; }
+
+        @keyframes flotar-deco {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .animacion-entra-derecha { animation: slideInRight 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        .animacion-entra-izquierda { animation: slideInLeft 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+
+        @keyframes slideInRight { from { transform: translateX(100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideInLeft { from { transform: translateX(-100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        .img-hero {
+            height: 110%; 
+            width: auto;
+            max-width: 90%;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
+            margin-top: 20px;
+            position: relative;
+            z-index: 3; 
+        }
+        
+        .info-hero { position: absolute; bottom: 40px; z-index: 5; width: 100%; }
+
+        .precio-hero { 
+            font-size: 3.5rem; 
+            font-weight: 300; 
+            color: white;
+            background: rgba(0, 0, 0, 0.2); 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 5px 40px; 
+            border-radius: 20px; 
+            border: 1px solid rgba(255,255,255,0.2);
+            display: inline-block;
+            letter-spacing: 2px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .signo-peso { font-weight: 900; font-size: 2.2rem; margin-right: 5px; vertical-align: middle; }
+        .valor-precio { vertical-align: middle; font-weight: 700;}
+
+        .flecha {
+            position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.15);
+            border: none; color: white; font-size: 2rem; cursor: pointer; padding: 10px; border-radius: 50%; z-index: 10;
+        }
+        .prev { left: 10px; }
+        .next { right: 10px; }
+
+        /* --- SECCIÓN MENU ABAJO --- */
+        .header-catalogo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0 20px;
+            padding: 0 10px;
+            flex-wrap: wrap;
+        }
+
+        .titulo-seccion { 
+            margin: 0;
+            font-size: 1.5rem; 
+            color: #ffffff; /* 🔴 CAMBIO: Texto blanco */
+            font-weight: 800; 
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .btn-pedir-cabecera {
+            background-color: #25D366;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+        .btn-pedir-cabecera:active { transform: scale(0.95); }
+
+        .contenedor-controles {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 0 15px;
+        }
+
+        .contenedor-filtros {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-filtro {
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: none;
+            background-color: rgba(255,255,255,0.1); /* 🔴 Fondo semitransparente */
+            color: #ffffff; /* 🔴 Texto blanco */
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-filtro:hover { transform: translateY(-2px); background-color: rgba(255,255,255,0.2); }
+        
+        .btn-filtro.activo { 
+            background-color: #e63946; 
+            color: white; 
+            box-shadow: 0 4px 10px rgba(230, 57, 70, 0.5); 
+            border: none;
+        }
+
+        .buscador-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px 20px;
+            border-radius: 30px;
+            border: none;
+            background: rgba(255,255,255,0.9); /* 🔴 Buscador claro */
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            outline: none;
+            transition: all 0.3s;
+        }
+        .buscador-input:focus {
+            background: white;
+            box-shadow: 0 5px 20px rgba(230, 57, 70, 0.2);
+        }
+
+        .grid-productos { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; padding: 0 20px; max-width: 900px; margin: 0 auto; }
+        
+        .card { 
+            background: white; border-radius: 20px; padding: 20px; text-align: center; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Sombra más fuerte para contrastar */
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s ease;
+            transition: transform 0.2s;
+        }
+        .card:hover { transform: translateY(-5px); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card img { width: 100%; height: 120px; object-fit: contain; margin-bottom: 15px; }
+        .card h3 { font-size: 1rem; margin-bottom: 5px; color: #333; /* Texto oscuro dentro de la tarjeta blanca */ }
+        .precio-card { color: #e63946; font-weight: 900; font-size: 1.2rem; }
+        
+        footer { text-align: center; margin-top: 50px; color: #bbb; /* 🔴 Footer gris claro */ font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+    <section class="carrusel-container" id="fondo-carrusel">
+        <div class="texto-fondo" id="texto-fondo">MARKET</div>
+        
+        <button class="flecha prev" onclick="cambiarSlide(-1)">&#10094;</button>
+        
+        <div class="carrusel-contenido">
+            <div id="caja-animada" class="caja-animada">
+                <div id="contenedor-decoraciones"></div>
+
+                <img src="" alt="Producto" class="img-hero" id="img-hero">
+                
+                <div class="info-hero">
+                    <div class="precio-hero">
+                        <span class="signo-peso">$</span><span class="valor-precio" id="precio-hero">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="flecha next" onclick="cambiarSlide(1)">&#10095;</button>
+    </section>
+
+    <div class="header-catalogo">
+        <h2 class="titulo-seccion">Catálogo Completo</h2>
+        <a href="https://wa.me/56956157879?text=Hola%20Pradera%20Market,%20quiero%20hacer%20un%20pedido" class="btn-pedir-cabecera" target="_blank">PIDE AQUÍ</a>
+    </div>
+
+    <div class="contenedor-controles">
+        <div class="contenedor-filtros">
+            <button class="btn-filtro activo" onclick="filtrarProductos('Todos', this)">Todos</button>
+            <button class="btn-filtro" onclick="filtrarProductos('Refrescos', this)">Refrescos</button>
+            <button class="btn-filtro" onclick="filtrarProductos('Snack', this)">Snack</button>
+            <button class="btn-filtro" onclick="filtrarProductos('Articulos', this)">Artículos</button>
+            <button class="btn-filtro" onclick="filtrarProductos('Growshop', this)">Growshop</button>
+        </div>
+        
+        <input type="text" id="buscador" class="buscador-input" placeholder="🔍 Buscar producto por nombre..." onkeyup="buscarProducto()">
+    </div>
+
+    <div id="contenedor-productos" class="grid-productos"></div>
+
+    <footer>
+        <p><strong>PK | Pradera Market</strong></p>
+        <p>📍 Depto 202</p>
+    </footer>
+
+    <script>
+        const productos = [
+            {
+                nombre: "Score Gorilla",
+                descripcion: "Sabor Jugo de Selva - 500ml",
+                precio: 100,
+                imagen: "img/scoregorilla.png", 
+                color: "#6A1B9A", 
+                textoFondo: "SCORE",
+                categoria: "Refrescos" 
+            },
+            {
+                nombre: "Lays",
+                descripcion: "Papas en Tarro",
+                precio: 1500,
+                imagen: "img/laystarro.png",
+                color: "#FDB913",
+                textoFondo: "LAYS",
+                categoria: "Snack" 
+            },
+            {
+                nombre: "Limon Soda",
+                descripcion: "Formato 1.5L",
+                precio: 1500,
+                imagen: "img/limonsoda.png",
+                color: "#6BA526",
+                textoFondo: "LIMON",
+                categoria: "Refrescos", 
+                decoraciones: [
+                    "img/limon.png", 
+                    "img/limon2.png" 
+                ]
+            },
+            {
+                nombre: "Coca Cola",
+                descripcion: "Retornable 1.5L",
+                precio: 1500,
+                imagen: "img/cocacola3l.png",
+                color: "#e63946",
+                textoFondo: "COCA",
+                categoria: "Refrescos" 
+            },
+            {
+                nombre: "Encendedor Clipper",
+                descripcion: "Varios Diseños",
+                precio: 1000,
+                imagen: "img/clipper.png", 
+                color: "#333",
+                textoFondo: "CLIPPER",
+                categoria: "Growshop" 
+            },
+            {
+                nombre: "Papelillos OCB",
+                descripcion: "Premium Black",
+                precio: 750,
+                imagen: "img/ocb.webp", 
+                color: "#000",
+                textoFondo: "OCB",
+                categoria: "Growshop" 
+            }
+        ];
+
+        let indiceActual = 0;
+
+        function cargarCarrusel() {
+            const prod = productos[indiceActual];
+            document.getElementById('texto-fondo').innerText = prod.textoFondo || prod.nombre.split(" ")[0]; 
+            document.getElementById('precio-hero').innerText = prod.precio;
+            
+            const imgElement = document.getElementById('img-hero');
+            imgElement.src = prod.imagen;
+            imgElement.onerror = function() { this.src = 'https://placehold.co/400x600?text=Sin+Foto'; };
+            
+            document.getElementById('fondo-carrusel').style.backgroundColor = prod.color;
+
+            const containerDeco = document.getElementById('contenedor-decoraciones');
+            containerDeco.innerHTML = ''; 
+            if (prod.decoraciones) {
+                if(prod.decoraciones[0]) containerDeco.innerHTML += `<img src="${prod.decoraciones[0]}" class="decoracion-flotante deco-1" style="opacity: 1;">`;
+                if(prod.decoraciones[1]) containerDeco.innerHTML += `<img src="${prod.decoraciones[1]}" class="decoracion-flotante deco-2" style="opacity: 1;">`;
+            }
+        }
+
+        function cambiarSlide(direccion) {
+            indiceActual += direccion;
+            if (indiceActual >= productos.length) indiceActual = 0;
+            if (indiceActual < 0) indiceActual = productos.length - 1;
+
+            const caja = document.getElementById('caja-animada');
+            caja.classList.remove('animacion-entra-derecha', 'animacion-entra-izquierda');
+            void caja.offsetWidth; 
+            cargarCarrusel();
+            if (direccion === 1) caja.classList.add('animacion-entra-derecha'); 
+            else caja.classList.add('animacion-entra-izquierda'); 
+        }
+
+        function mostrarProductosEnGrid(lista) {
+            const contenedor = document.getElementById('contenedor-productos');
+            contenedor.innerHTML = ''; 
+            
+            if(lista.length === 0) {
+                contenedor.innerHTML = '<p style="text-align:center; width:100%; color:#ccc;">No se encontraron productos.</p>';
+                return;
+            }
+
+            lista.forEach(prod => {
+                contenedor.innerHTML += `
+                    <div class="card">
+                        <img src="${prod.imagen}" onerror="this.src='https://placehold.co/150?text=Foto'">
+                        <h3>${prod.nombre}</h3>
+                        <div class="precio-card">$${prod.precio}</div>
+                    </div>
+                `;
+            });
+        }
+
+        function filtrarProductos(categoria, botonPresionado) {
+            document.getElementById('buscador').value = "";
+            
+            const botones = document.querySelectorAll('.btn-filtro');
+            botones.forEach(btn => btn.classList.remove('activo')); 
+            botonPresionado.classList.add('activo'); 
+
+            if (categoria === 'Todos') {
+                mostrarProductosEnGrid(productos);
+            } else {
+                const filtrados = productos.filter(prod => prod.categoria === categoria);
+                mostrarProductosEnGrid(filtrados);
+            }
+        }
+
+        function buscarProducto() {
+            const texto = document.getElementById('buscador').value.toLowerCase();
+            
+            const botones = document.querySelectorAll('.btn-filtro');
+            botones.forEach(btn => btn.classList.remove('activo'));
+            
+            if(texto === "") {
+                document.querySelector('.btn-filtro').classList.add('activo');
+                mostrarProductosEnGrid(productos);
+                return;
+            }
+
+            const filtrados = productos.filter(prod => 
+                prod.nombre.toLowerCase().includes(texto)
+            );
+            mostrarProductosEnGrid(filtrados);
+        }
+
+        cargarCarrusel();
+        setInterval(() => { cambiarSlide(1) }, 6000);
+        mostrarProductosEnGrid(productos);
+        
+    </script>
+</body>
+</html>
