@@ -160,26 +160,26 @@
             text-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
-        /* 🔴 CAMBIOS EN EL BOTÓN DE WHATSAPP */
+        /* BOTÓN WHATSAPP GRANDE */
         .btn-pedir-cabecera {
             background-color: #25D366;
             color: white;
-            padding: 12px 35px; /* Más grande (antes 8px 20px) */
-            border-radius: 50px; /* Más redondeado */
+            padding: 15px 40px; 
+            border-radius: 50px; 
             text-decoration: none;
-            font-weight: 900; /* Letra más gruesa */
-            font-size: 1.2rem; /* Letra más grande */
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); /* Sombra verde brillante */
+            font-weight: 900; 
+            font-size: 1.3rem; 
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.5); 
             transition: transform 0.2s;
-            display: inline-flex; /* Alineación del icono */
+            display: inline-flex; 
             align-items: center;
-            gap: 10px; /* Espacio entre logo y texto */
+            gap: 15px; 
         }
         .btn-pedir-cabecera:active { transform: scale(0.95); }
-        
+
         .icono-wsp {
-            width: 28px;
-            height: 28px;
+            width: 35px;  
+            height: 35px;
             object-fit: contain;
             filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
         }
@@ -251,8 +251,30 @@
             align-items: center;
             animation: fadeIn 0.5s ease;
             transition: transform 0.2s;
+            position: relative; /* Importante para el cartel de Agotado */
         }
         .card:hover { transform: translateY(-5px); }
+
+        /* 🔴 ESTILOS PARA AGOTADO */
+        .card.agotado {
+            opacity: 0.6;
+        }
+        
+        .etiqueta-agotado {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-10deg);
+            background-color: #d00000; /* Rojo */
+            color: white;
+            padding: 5px 15px;
+            font-weight: 900;
+            font-size: 1.2rem;
+            border: 2px solid white;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -290,7 +312,7 @@
     <div class="header-catalogo">
         <h2 class="titulo-seccion">Catálogo Completo</h2>
         <a href="https://wa.me/56956157879?text=Hola%20Pradera%20Market,%20quiero%20hacer%20un%20pedido" class="btn-pedir-cabecera" target="_blank">
-            <img src="img/whatsapp.webp" alt="WSP" class="icono-wsp">
+            <img src="img/whatsapp.webp" alt="WhatsApp" class="icono-wsp">
             PIDE AQUÍ
         </a>
     </div>
@@ -311,7 +333,7 @@
 
     <footer>
         <p><strong>PK | Pradera Market</strong></p>
-        <p>  </p>
+        <p></p>
     </footer>
 
     <script>
@@ -332,7 +354,8 @@
                 imagen: "img/laystarro.png",
                 color: "#FDB913",
                 textoFondo: "LAYS",
-                categoria: "Snack" 
+                categoria: "Snack",
+                agotado: true // 🔴 AGOTADO
             },
             {
                 nombre: "Limon Soda 1.5L Deseshable",
@@ -348,13 +371,14 @@
                 ]
             },
             {
-                nombre: "Coca Cola",
+                nombre: "Coca Cola 3L Deseshable",
                 descripcion: "Retornable 1.5L",
-                precio: 1500,
+                precio: 3000,
                 imagen: "img/cocacola3l.png",
                 color: "#e63946",
                 textoFondo: "COCA",
-                categoria: "Refrescos" 
+                categoria: "Refrescos",
+                agotado: true
             },
             {
                 nombre: "Encendedor Clipper",
@@ -363,7 +387,8 @@
                 imagen: "img/clipper.png", 
                 color: "#333",
                 textoFondo: "CLIPPER",
-                categoria: "Growshop" 
+                categoria: "Growshop",
+                agotado: true // 🔴 AGOTADO
             },
             {
                 nombre: "Papelillos OCB",
@@ -372,7 +397,8 @@
                 imagen: "img/ocb.webp", 
                 color: "#000",
                 textoFondo: "OCB",
-                categoria: "Growshop" 
+                categoria: "Growshop",
+                agotado: true // 🔴 AGOTADO
             },
             // 🔴 PRODUCTOS SOLO GRID
             {
@@ -463,7 +489,8 @@
                 color: "#e63946",
                 textoFondo: "DORITOS",
                 categoria: "Refrescos",
-                soloGrid: true 
+                soloGrid: true,
+                agotado: false // 🔴 AGOTADO
             }
         ];
 
@@ -514,8 +541,13 @@
             }
 
             lista.forEach(prod => {
+                // 🔴 Verificamos si está agotado para ponerle la clase y el cartel
+                let claseAgotado = prod.agotado ? 'agotado' : '';
+                let cartelAgotado = prod.agotado ? '<div class="etiqueta-agotado">AGOTADO</div>' : '';
+
                 contenedor.innerHTML += `
-                    <div class="card">
+                    <div class="card ${claseAgotado}">
+                        ${cartelAgotado}
                         <img src="${prod.imagen}" onerror="this.src='https://placehold.co/150?text=Foto'">
                         <h3>${prod.nombre}</h3>
                         <div class="precio-card">$${prod.precio}</div>
