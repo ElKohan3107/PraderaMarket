@@ -160,19 +160,29 @@
             text-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
+        /* 🔴 CAMBIOS EN EL BOTÓN DE WHATSAPP */
         .btn-pedir-cabecera {
             background-color: #25D366;
             color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
+            padding: 12px 35px; /* Más grande (antes 8px 20px) */
+            border-radius: 50px; /* Más redondeado */
             text-decoration: none;
-            font-weight: bold;
-            font-size: 0.9rem;
-            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+            font-weight: 900; /* Letra más gruesa */
+            font-size: 1.2rem; /* Letra más grande */
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); /* Sombra verde brillante */
             transition: transform 0.2s;
-            display: inline-block;
+            display: inline-flex; /* Alineación del icono */
+            align-items: center;
+            gap: 10px; /* Espacio entre logo y texto */
         }
         .btn-pedir-cabecera:active { transform: scale(0.95); }
+        
+        .icono-wsp {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+        }
 
         .contenedor-controles {
             display: flex;
@@ -279,7 +289,10 @@
 
     <div class="header-catalogo">
         <h2 class="titulo-seccion">Catálogo Completo</h2>
-        <a href="https://wa.me/56956157879?text=Hola%20Pradera%20Market,%20quiero%20hacer%20un%20pedido" class="btn-pedir-cabecera" target="_blank">PIDE AQUÍ</a>
+        <a href="https://wa.me/56956157879?text=Hola%20Pradera%20Market,%20quiero%20hacer%20un%20pedido" class="btn-pedir-cabecera" target="_blank">
+            <img src="img/whatsapp.webp" alt="WSP" class="icono-wsp">
+            PIDE AQUÍ
+        </a>
     </div>
 
     <div class="contenedor-controles">
@@ -298,7 +311,7 @@
 
     <footer>
         <p><strong>PK | Pradera Market</strong></p>
-        <p>📍 Depto 202</p>
+        <p>  </p>
     </footer>
 
     <script>
@@ -315,7 +328,7 @@
             {
                 nombre: "Lays",
                 descripcion: "Papas en Tarro",
-                precio: 1500,
+                precio: 2500,
                 imagen: "img/laystarro.png",
                 color: "#FDB913",
                 textoFondo: "LAYS",
@@ -330,7 +343,7 @@
                 textoFondo: "LIMON",
                 categoria: "Refrescos", 
                 decoraciones: [
-                    "img/limon.png", 
+                    "img/limon.webp", 
                     "img/limon2.png" 
                 ]
             },
@@ -361,7 +374,7 @@
                 textoFondo: "OCB",
                 categoria: "Growshop" 
             },
-            // 🔴 NUEVO PRODUCTO DORITOS (CON MARCA PARA NO SALIR EN CARRUSEL)
+            // 🔴 PRODUCTOS SOLO GRID
             {
                 nombre: "Doritos 450g",
                 descripcion: "Queso",
@@ -370,9 +383,8 @@
                 color: "#e63946",
                 textoFondo: "DORITOS",
                 categoria: "Snack",
-                soloGrid: true // 🔴 Esta propiedad evita que salga en el carrusel
+                soloGrid: true 
             },
-
             {
                 nombre: "Orange Crush 1.5L Deseshable",
                 descripcion: "Queso",
@@ -383,7 +395,6 @@
                 categoria: "Refrescos",
                 soloGrid: true 
             },
-
             {
                 nombre: "Kem Piña 1.5L Deseshable",
                 descripcion: "Queso",
@@ -394,7 +405,6 @@
                 categoria: "Refrescos",
                 soloGrid: true 
             },
-
             {
                 nombre: "Kem Extreme 1.5L Deseshable",
                 descripcion: "Queso",
@@ -405,7 +415,6 @@
                 categoria: "Refrescos",
                 soloGrid: true 
             },
-
             {
                 nombre: "Pap 1.5L Deseshable",
                 descripcion: "Queso",
@@ -416,7 +425,6 @@
                 categoria: "Refrescos",
                 soloGrid: true 
             },
-
             {
                 nombre: "Bilz 1.5L Deseshable",
                 descripcion: "Queso",
@@ -427,7 +435,6 @@
                 categoria: "Refrescos",
                 soloGrid: true 
             },
-
             {
                 nombre: "Canada Dry 1.5L Deseshable",
                 descripcion: "Queso",
@@ -438,7 +445,6 @@
                 categoria: "Refrescos",
                 soloGrid: true 
             },
-
             {
                 nombre: "Coca-Cola 1.25L Retornable",
                 descripcion: "Queso",
@@ -449,7 +455,6 @@
                 categoria: "Refrescos",
                 soloGrid: true 
             },
-
             {
                 nombre: "Coca-Cola 3L Retornable",
                 descripcion: "Queso",
@@ -465,13 +470,10 @@
         let indiceActual = 0;
 
         // 🔴 LÓGICA DE FILTRADO PARA CARRUSEL
-        // Creamos una lista separada que SOLO tiene los productos que NO son 'soloGrid'
         const productosCarrusel = productos.filter(prod => !prod.soloGrid);
 
         function cargarCarrusel() {
-            // Usamos la nueva lista filtrada para el carrusel
             const prod = productosCarrusel[indiceActual];
-            
             document.getElementById('texto-fondo').innerText = prod.textoFondo || prod.nombre.split(" ")[0]; 
             document.getElementById('precio-hero').innerText = prod.precio;
             
@@ -491,7 +493,6 @@
 
         function cambiarSlide(direccion) {
             indiceActual += direccion;
-            // Usamos el largo de la lista filtrada, no de todos los productos
             if (indiceActual >= productosCarrusel.length) indiceActual = 0;
             if (indiceActual < 0) indiceActual = productosCarrusel.length - 1;
 
@@ -525,7 +526,6 @@
 
         function filtrarProductos(categoria, botonPresionado) {
             document.getElementById('buscador').value = "";
-            
             const botones = document.querySelectorAll('.btn-filtro');
             botones.forEach(btn => btn.classList.remove('activo')); 
             botonPresionado.classList.add('activo'); 
@@ -540,7 +540,6 @@
 
         function buscarProducto() {
             const texto = document.getElementById('buscador').value.toLowerCase();
-            
             const botones = document.querySelectorAll('.btn-filtro');
             botones.forEach(btn => btn.classList.remove('activo'));
             
